@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Studious Me - Login</title>
+  <link rel="stylesheet" th:href="@{/css/login.css}">
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <img th:src="@{/images/KDKCELOGO-removebg-preview.png}" alt="Library Icon" class="logo">
+      <h1>BookTrack</h1>
+    </div>
+
+    <div class="login-box">
+      <h2>Welcome to 24x7 Online Library</h2>
+      <p class="subtitle">Log in as</p>
+
+      <div class="role-options">
+        <div class="role">
+          <a th:href="@{/user/login}">
+            <img th:src="@{/images/graduation.gif}" alt="User">
+            <p>USER</p>
+          </a>
+        </div>
+        <div class="role">
+          <a th:href="@{/admin/login}">
+            <img th:src="@{/images/personnel.gif}" alt="Admin">
+            <p>ADMIN</p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

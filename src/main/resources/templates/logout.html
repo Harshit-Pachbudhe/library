@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Logout | BookTrack</title>
+  <link rel="stylesheet" th:href="@{/css/logout.css}" />
+</head>
+
+<body>
+
+  <div class="logout-container">
+    <div class="logout-card">
+      <h2>Successfully Logged Out</h2>
+      <p>You have been logged out of BookTrack.</p>
+      <a th:href="@{/login}" class="btn">Go to Login</a>
+      <a th:href="@{/}" class="link">← Back to Home</a>
+    </div>
+  </div>
+
+</body>
+
+</html>

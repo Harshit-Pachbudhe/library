@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Dashboard</title>
+  <link rel="stylesheet" th:href="@{/css/studnotif.css}">
+</head>
+<body>
+  <div class="container">
+    <h1>👨‍🎓 Student Dashboard</h1>
+
+    <section class="card">
+      <h2>📚 My Issued Books</h2>
+      <table id="studentBooks">
+        <thead>
+          <tr>
+            <th>Book</th>
+            <th>Pickup</th>
+            <th>Return</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Example Thymeleaf loop (replace with real backend data) -->
+          <tr th:each="book : ${issuedBooks}">
+            <td th:text="${book.title}">Book Title</td>
+            <td th:text="${book.pickupDate}">Pickup Date</td>
+            <td th:text="${book.returnDate}">Return Date</td>
+            <td th:text="${book.status}">Status</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="card">
+      <h2>🔔 Messages from Admin</h2>
+      <div id="messages">
+        <div th:each="msg : ${adminMessages}" th:text="${msg}">Message content</div>
+      </div>
+    </section>
+  </div>
+
+  <script th:src="@{/js/studnotif.js}"></script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookTrack - STUDENT reservation</title>
+  <link rel="stylesheet" href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css}">
+  <link rel="stylesheet" th:href="@{/css/studreserve.css}">
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div>
+      <div class="logo"><img th:src="@{/images/graduate.gif}" alt="book icon">BookTrack</div>
+      <div class="menu">
+        <a th:href="@{/studdash}" class="active"><i class="fa fa-home"></i> Dashboard </a>
+        <a th:href="@{/studsearch}" class="active"><i class="fa fa-search"></i> Search Books </a>
+        <a th:href="@{/studissue-return}"><i class="fa fa-exchange-alt"></i> Issue / Return</a>
+        <a th:href="@{/studreserve}"><i class="fa fa-bookmark"></i> Reservations</a>
+            </div>
+        </div>
+    <a th:href="@{/logout}"><i class="fa fa-sign-out"></i> Logout</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main">
+        <div class="topbar">
+            <!-- Search bar -->
+            <input type="text" placeholder="🔍 Search books, users..." class="search-bar">
+
+            <!-- Notifications -->
+            <div class="notification">
+              <a th:href="@{/studnotif}">
+                <i class="fa fa-bell fa-lg"></i>
+                <span class="badge">5</span>
+              </a>
+            </div>
+
+            <!-- Profile -->
+      <a th:href="@{/studprofile}" class="profile-link">
+        <img th:src="@{/images/profile.webp}" alt="Profile" class="profile-pic">
+            </a>
+        </div>
+
+  <main class="container">
+    <!-- Reservation Form -->
+    <section class="card">
+      <h2>Reserve a Book</h2>
+  <form th:action="@{/student/reserve}" method="post" id="reserveForm">
+        <div class="form-group">
+          <label>Your Name:</label>
+          <input type="text" id="studentName" name="studentName" th:value="${student.name}" placeholder="Enter your name" required>
+        </div>
+
+        <div class="form-group">
+          <label>Select Book:</label>
+          <select id="bookTitle" name="bookTitle" required>
+            <option th:each="book : ${books}" th:value="${book.id}" th:text="${book.title}"></option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Pick-up Date:</label>
+          <input type="date" id="pickupDate" name="pickupDate" required>
+        </div>
+
+        <div class="form-group">
+          <label>Pick-up Time:</label>
+          <input type="time" id="pickupTime" name="pickupTime" required>
+        </div>
+
+        <div class="form-group">
+          <label>Reservation Timeline (days):</label>
+          <input type="number" id="timelineDays" name="timelineDays" min="1" max="30" placeholder="e.g. 7" required>
+        </div>
+
+        <button type="submit" class="btn">Reserve Book</button>
+      </form>
+    </section>
+
+    <!-- Student Reservations -->
+    <section class="card">
+      <h2>Your Reservations</h2>
+      <table id="studentTable">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Book Title</th>
+            <th>Pick-up</th>
+            <th>Time</th>
+            <th>Return Date</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="res, iterStat : ${reservations}">
+            <td th:text="${iterStat.index + 1}">1</td>
+            <td th:text="${res.bookTitle}">Book Name</td>
+            <td th:text="${res.pickupDate}">2025-10-10</td>
+            <td th:text="${res.pickupTime}">10:00 AM</td>
+            <td th:text="${res.returnDate}">2025-10-17</td>
+            <td th:text="${res.status}">Pending</td>
+          </tr>
+          <tr th:if="${#lists.isEmpty(reservations)}">
+            <td colspan="6">No reservations found.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+</body>
+</html>

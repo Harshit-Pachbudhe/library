@@ -1,0 +1,164 @@
+  * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", sans-serif;
+        }
+
+        body {
+            display: flex;
+            background: #f3f1f1;
+            color: #151414;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* --- Sidebar --- */
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background: #1c1c2b;
+            padding: 20px 10px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            color: #fff;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            text-align: center;
+            padding-top: 5px;
+            padding-bottom: 8px;
+            color: #3b82f6;
+            display: flex;
+
+
+        }
+
+        .logo img {
+            width: 35px;
+            height: 35px;
+            margin: 5px;
+        }
+
+        .menu a {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            margin: 5px 0;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .menu a:hover {
+            background: #2a2a3d;
+            color: #ffcc00;
+        }
+
+        .menu i {
+            margin-right: 10px;
+        }
+
+        /* --- Main Content --- */
+        .main {
+            margin-left: 260px;
+            padding: 20px;
+            flex: 1;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background: #f4f2f2;
+            /* Dark theme */
+            color: white;
+            border-bottom: 2px solid #444;
+        }
+
+        .search-bar {
+            flex: 1;
+            max-width: 700px;
+            padding: 8px 120px;
+            border: 1px solid #131212;
+            border-radius: 20px;
+            outline: none;
+        }
+
+        .notification {
+            position: relative;
+            margin: 0 20px;
+            cursor: pointer;
+            color: rgb(239, 239, 34);
+        }
+
+        .notification .badge {
+            position: absolute;
+            top: -5px;
+            right: -10px;
+            background: red;
+            color: rgb(212, 204, 204);
+            font-size: 12px;
+            padding: 2px 6px;
+            border-radius: 50%;
+        }
+
+        .profile-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .profile-pic {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            transition: transform 0.2s;
+        }
+
+        .profile-pic:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 8px #0f9;
+        }
+
+:root{
+  --bg:#f4f7fb;--card:#ffffff;--accent:#9333ea;--muted:#6b7280;
+  --danger:#dc2626;--success:#059669;--radius:12px;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+}
+
+body{margin:0;background:var(--bg);color:#0f172a}
+.app{display:grid;grid-template-columns:260px 1fr;min-height:100vh}
+
+
+.brand{font-weight:700;font-size:20px;display:flex;align-items:center;gap:10px}
+.logo-img{width:36px;height:36px;border-radius:8px}
+
+.nav{margin-top:20px}
+.nav a{display:block;width:100%;padding:10px 12px;border-radius:8px;text-decoration:none;color:inherit;margin-bottom:8px}
+.nav a.active{background:rgba(255,255,255,0.06)}
+
+main{padding:28px}
+.card{background:var(--card);border-radius:var(--radius);padding:16px;box-shadow:0 6px 20px rgba(2,6,23,0.06)}
+
+table{width:100%;border-collapse:collapse}
+th,td{padding:8px 6px;text-align:left;border-bottom:1px solid #eef2ff}
+
+.btn{padding:6px 10px;border-radius:8px;border:0;cursor:pointer}
+.btn.primary{background:var(--accent);color:#fff}
+.btn.danger{background:var(--danger);color:#fff}
+.btn.success{background:var(--success);color:#fff}
+
+.muted{color:var(--muted)}
+.flex{display:flex;gap:8px;align-items:center}
+
+@media(max-width:900px){.app{grid-template-columns:1fr}.sidebar{display:none}}

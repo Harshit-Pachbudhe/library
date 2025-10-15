@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookTrack - Admin Dashboard</title>
+
+    <!-- External CSS (CDN) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Local CSS (renamed file to avoid '&' issue) -->
+    <!-- Rename your file to: admin-issue-return.css -->
+    <link rel="stylesheet" th:href="@{/css/admin-issue-return.css}">
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div>
+            <div class="logo">
+                <img th:src="@{/images/graduate.gif}" alt="book icon">BookTrack
+            </div>
+            <div class="menu">
+                <a th:href="@{/admin/dashboard}"><i class="fa fa-home"></i> Dashboard</a>
+                <a th:href="@{/admin/manage-books}"><i class="fa fa-book"></i> Manage Books</a>
+                <a th:href="@{/admin/manage-users}"><i class="fa fa-users"></i> Manage Users</a>
+                <a th:href="@{/admin/issue-return}"><i class="fa fa-exchange-alt"></i> Issue / Return</a>
+                <a th:href="@{/admin/reservations}"><i class="fa fa-bookmark"></i> Reservations</a>
+            </div>
+        </div>
+        <a th:href="@{/logout}"><i class="fa fa-sign-out"></i> Logout</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main">
+        <div class="topbar">
+            <!-- Search bar -->
+            <input type="text" placeholder="🔍 Search books, users..." class="search-bar">
+
+            <!-- Notifications -->
+            <div class="notification">
+                <a th:href="@{/admin/notifications}">
+                    <i class="fa fa-bell fa-lg"></i>
+                    <span class="badge">5</span>
+                </a>
+            </div>
+
+            <!-- Profile -->
+            <a th:href="@{/admin/profile}" class="profile-link">
+                <img th:src="@{/images/profile.webp}" alt="Profile" class="profile-pic">
+            </a>
+        </div>
+
+        <!-- Main Section -->
+        <main>
+            <div class="card">
+                <h3>Loans Management</h3>
+
+                <div class="flex" style="margin-bottom:10px">
+                    <input id="loanStudent" placeholder="Student Name" style="padding:6px;flex:1">
+                    <input id="loanBook" placeholder="Book Title" style="padding:6px;flex:1">
+                    <button class="btn primary" id="addLoan">Issue</button>
+                </div>
+
+                <table id="loansTable">
+                    <thead>
+                        <tr>
+                            <th>Student</th>
+                            <th>Book</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Thymeleaf dynamic rows (for future use) -->
+                        <!--
+                        <tr th:each="loan : ${loans}">
+                            <td th:text="${loan.studentName}">John</td>
+                            <td th:text="${loan.bookTitle}">DBMS</td>
+                            <td th:text="${loan.status}">Issued</td>
+                            <td>
+                                <button class="btn return">✅ Return</button>
+                            </td>
+                        </tr>
+                        -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- JS file (rename to match the same format) -->
+    <script th:src="@{/js/admin-issue-return.js}"></script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+body {
+  background: url('../images/login page images.jpg') no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.container {
+  text-align: center;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.logo {
+  height: 60px;
+}
+
+.header h1 {
+  font-size: 36px;
+  color: #0066ff;
+  font-weight: bold;
+}
+
+.login-box {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 30px 50px;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  display: inline-block;
+}
+
+.login-box h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  margin-bottom: 25px;
+  font-size: 16px;
+  color: #333;
+}
+
+.role-options {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-bottom: 20px;
+}
+
+.role img {
+  width: 80px;
+  height: 80px;
+  transition: transform 0.3s;
+}
+
+.role p {
+  font-size: 16px;
+  font-weight: bold;
+  color: #000;
+  margin-top: 10px;
+}
+
+.role a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.role:hover img {
+  transform: scale(1.1);
+}
+
+.create-account {
+  text-decoration: none;
+  font-size: 14px;
+  color: #5a2a99;
+}
+
+.create-account:hover {
+  text-decoration: underline;
+}

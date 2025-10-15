@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BookTrack - Admin Notifications</title>
+
+  <!-- ✅ External Font Awesome (do not use th:href for CDNs) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- ✅ Local CSS (must exist in src/main/resources/static/css/) -->
+  <link rel="stylesheet" th:href="@{/css/adminnotif.css}">
+</head>
+
+<body>
+  <div class="container">
+    <h1>📘 Admin Dashboard</h1>
+
+    <!-- 📖 Book Issue Form -->
+    <section class="card">
+      <h2><i class="fa fa-book"></i> Issue Book</h2>
+      <form id="issueForm" th:action="@{/admin/issue}" method="post">
+        <input type="text" id="studentName" name="studentName" placeholder="Student Name" required>
+        <input type="text" id="bookTitle" name="bookTitle" placeholder="Book Title" required>
+        <input type="date" id="pickupDate" name="pickupDate" required>
+        <input type="date" id="returnDate" name="returnDate" required>
+        <button type="submit"><i class="fa fa-plus"></i> Issue Book</button>
+      </form>
+    </section>
+
+    <!-- 📚 Issued Books List -->
+    <section class="card">
+      <h2><i class="fa fa-list"></i> Issued Books</h2>
+      <table id="issuedBooksTable">
+        <thead>
+          <tr>
+            <th>Student</th>
+            <th>Book</th>
+            <th>Pickup</th>
+            <th>Return</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- ✅ Dynamic rows rendered by Thymeleaf -->
+          <tr th:each="issue : ${issuedBooks}">
+            <td th:text="${issue.studentName}">Student</td>
+            <td th:text="${issue.bookTitle}">Book</td>
+            <td th:text="${issue.pickupDate}">Pickup</td>
+            <td th:text="${issue.returnDate}">Return</td>
+            <td th:text="${issue.status}">Status</td>
+            <td>
+              <form th:action="@{/admin/return}" method="post" style="display:inline;">
+                <input type="hidden" th:name="id" th:value="${issue.id}">
+                <button type="submit" class="btn return"><i class="fa fa-check"></i> Mark Returned</button>
+              </form>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 🔔 Send Notification -->
+    <section class="card">
+      <h2><i class="fa fa-bell"></i> Send Notification</h2>
+      <form id="notifyForm" th:action="@{/admin/notify}" method="post">
+        <input type="text" id="notifyStudent" name="studentName" placeholder="Student Name" required>
+        <textarea id="notifyMessage" name="message" placeholder="Write message (e.g. Overdue alert)" required></textarea>
+        <button type="submit"><i class="fa fa-paper-plane"></i> Send Message</button>
+      </form>
+    </section>
+  </div>
+
+  <!-- ✅ Local JS (must exist in src/main/resources/static/js/) -->
+  <script th:src="@{/js/adminnotif.js}"></script>
+</body>
+</html>

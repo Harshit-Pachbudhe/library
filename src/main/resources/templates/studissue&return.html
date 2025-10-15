@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookTrack - Student Issue & Return</title>
+    <link rel="stylesheet" href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css}">
+    <!-- original file kept for compatibility; forward to safe asset names -->
+    <link rel="stylesheet" th:href="@{/css/studissue-return.css}">
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div>
+            <div class="logo">
+                <img th:src="@{/images/graduate.gif}" alt="book icon">BookTrack
+            </div>
+            <div class="menu">
+                <a th:href="@{/studdash}" class="active"><i class="fa fa-home"></i> Dashboard </a>
+                <a th:href="@{/studsearch}"><i class="fa fa-search"></i> Search Books </a>
+                <a th:href="@{/studissue-return}"><i class="fa fa-exchange-alt"></i> Issue / Return</a>
+                <a th:href="@{/studreserve}"><i class="fa fa-bookmark"></i> Reservations</a>
+            </div>
+        </div>
+        <a th:href="@{/logout}"><i class="fa fa-sign-out"></i> Logout</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main">
+        <div class="topbar">
+            <input type="text" placeholder="🔍 Search books, users..." class="search-bar">
+
+            <div class="notification">
+                <a th:href="@{/studnotif}">
+                    <i class="fa fa-bell fa-lg"></i>
+                    <span class="badge">5</span>
+                </a>
+            </div>
+
+            <a th:href="@{/studprofile}" class="profile-link">
+                <img th:src="@{/images/profile.webp}" alt="Profile" class="profile-pic">
+            </a>
+        </div>
+
+        <!-- Search Box -->
+        <div class="search-box">
+            <label><b>Enter Your Name:</b></label><br>
+            <input type="text" id="studentName" placeholder="Type your name">
+            <button id="viewBooksBtn">View My Books</button>
+        </div>
+
+        <!-- Issued Books Table -->
+        <h3>📖 Issued Books</h3>
+        <table id="issuedTable">
+            <thead>
+                <tr>
+                    <th>Book Title</th>
+                    <th>Pickup Date</th>
+                    <th>Return Deadline</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="3">No issued books found.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Returned Books Table -->
+        <h3>✅ Returned Books</h3>
+        <table id="returnedTable">
+            <thead>
+                <tr>
+                    <th>Book Title</th>
+                    <th>Pickup Date</th>
+                    <th>Return Deadline</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="3">No returned books found.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script th:src="@{/js/studissue-return.js}"></script>
+</body>
+</html> 

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login | Library</title>
+  <link rel="stylesheet" th:href="@{/css/adminlogin.css}">
+</head>
+
+<body>
+  <div class="login-container">
+    <h2>Library Admin Login</h2>
+
+    <!-- Error Message -->
+    <div th:if="${error}" style="color:red;" th:text="${error}"></div>
+
+    <!-- Login Form -->
+    <form th:action="@{/admin/login}" method="post" class="login-form">
+      <div class="form-group">
+        <label for="adminId">Admin ID</label>
+        <input type="text" id="adminId" name="adminId" placeholder="Enter Admin ID" required>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter Password" required>
+      </div>
+
+      <button type="submit" class="login-btn">Login</button>
+      <p class="note">Only authorized admins can login.</p>
+    </form>
+
+    <div class="links">
+      <a th:href="@{/admin/forgot-password}">Forgot password?</a> |
+      <a th:href="@{/admin/register}">Register Now</a>
+    </div>
+  </div>
+</body>
+
+</html>

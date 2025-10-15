@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BookTrack</title>
+  <link rel="stylesheet" th:href="@{/css/help.css}" />
+</head>
+
+<body>
+  <header class="library-header">
+    <div class="header-overlay">
+      <div class="logo-area">
+        <img th:src="@{/images/graduate.gif}" alt="Logo" class="logo-icon" />
+        <div>
+          <h1 class="library-name">BookTrack</h1>
+          <p class="library-tagline">Student-Centric Library System</p>
+        </div>
+      </div>
+
+      <nav class="nav-links">
+        <a th:href="@{/index}">Home</a>
+        <a th:href="@{/info}">Information</a>
+        <a th:href="@{/help}" class="active">Help</a>
+        <a th:href="@{/librarian}">Librarian</a>
+        <a th:href="@{/login}">Log in</a>
+      </nav>
+    </div>
+  </header>
+
+  <section id="help-usage" style="padding: 50px 20px; max-width: 1000px; margin: auto;">
+    <h1 style="font-size: 32px; font-weight: bold; color: #1e1e1e;">Help On Usage</h1>
+    <hr style="margin: 20px 0; border: 1px solid #ddd;">
+
+    <h2 style="font-size: 28px; font-weight: bold; margin-top: 30px;">Searching</h2>
+    <p style="font-size: 18px; line-height: 1.6; color: #333;">
+      There are 2 methods available on searching library catalog. The first one is
+      <strong>SIMPLE SEARCH</strong>, which is the simplest method on searching catalog.
+      You just enter any keyword, either it contains in titles, author(s) names or subjects.
+      You can supply more than one keywords in Simple Search method and it will expanding your search results.
+    </p>
+
+    <p style="font-size: 18px; line-height: 1.6; color: #333;">
+      <strong>ADVANCED SEARCH</strong>, lets you define keywords in more specific fields. If you want your keywords only
+      contained in title field, then type your keyword in Title field and the system will limit its search within
+      <strong>Title</strong> fields only, not in other fields. Location field lets you narrowing search results by
+      specific location, so only collection that exists in selected location get fetched by system.
+    </p>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-left">
+        <h3>📚 BookTrack</h3>
+        <p>Student-Centric Library Management System</p>
+        <p>KDK College of Engineering, Nagpur</p>
+      </div>
+
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a th:href="@{/index}">Home</a></li>
+          <li><a th:href="@{/help}">Catalog</a></li>
+          <li><a th:href="@{/help}">E-Resources</a></li>
+          <li><a th:href="@{/help}">Feedback</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-contact">
+        <h4>Contact</h4>
+        <p>Email: library@kdkce.edu.in</p>
+        <p>Phone: +91-712-1234567</p>
+        <p>Address: KDK College Campus, Nagpur</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2025 BookTrack | Developed for KDK College by Final Year CSE Students</p>
+    </div>
+  </footer>
+
+  <script th:src="@{/js/index.js}"></script>
+</body>
+</html>

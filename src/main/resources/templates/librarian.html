@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BookTrack</title>
+  <link rel="stylesheet" th:href="@{/css/librarian.css}" />
+</head>
+
+<body>
+  <header class="library-header">
+    <div class="header-overlay">
+      <div class="logo-area">
+        <img th:src="@{/images/graduate.gif}" alt="Logo" class="logo-icon" />
+        <div>
+          <h1 class="library-name">BookTrack</h1>
+          <p class="library-tagline">Student-Centric Library System</p>
+        </div>
+      </div>
+
+      <nav class="nav-links">
+        <a th:href="@{/index}">Home</a>
+        <a th:href="@{/info}">Information</a>
+        <a th:href="@{/help}">Help</a>
+        <a th:href="@{/librarian}" class="active">Librarian</a>
+        <a th:href="@{/login}">Log in</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="booktrack-librarians">
+    <h2>📘 BookTrack: Meet Our Librarians</h2>
+    <hr />
+    <div class="librarian-list">
+
+      <!-- Librarian 1 -->
+      <div class="librarian-card">
+        <img th:src="@{/images/l1.jpg}" alt="Senior Librarian" />
+        <div class="info">
+          <p><strong>Name</strong>: G. S. Narnaware</p>
+          <p><strong>Position</strong>: Senior Librarian</p>
+          <p><strong>Email</strong>: librarian@kdk.edu.in</p>
+          <p><strong>Contact no.</strong>: 9823519261</p>
+        </div>
+      </div>
+
+      <!-- Librarian 2 -->
+      <div class="librarian-card">
+        <img th:src="@{/images/l2.jpg}" alt="Junior Librarian" />
+        <div class="info">
+          <p><strong>Name</strong>: Asaram Meherkure</p>
+          <p><strong>Position</strong>: Junior Librarian</p>
+          <p><strong>Email</strong>: digilib@kdk.edu.in</p>
+          <p><strong>Contact no.</strong>: 9823435607</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-left">
+        <h3>📚 BookTrack</h3>
+        <p>Student-Centric Library Management System</p>
+        <p>KDK College of Engineering, Nagpur</p>
+      </div>
+
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a th:href="@{/index}">Home</a></li>
+          <li><a th:href="@{/librarian}">Catalog</a></li>
+          <li><a th:href="@{/librarian}">E-Resources</a></li>
+          <li><a th:href="@{/librarian}">Feedback</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-contact">
+        <h4>Contact</h4>
+        <p>Email: library@kdkce.edu.in</p>
+        <p>Phone: +91-712-1234567</p>
+        <p>Address: KDK College Campus, Nagpur</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2025 BookTrack | Developed for KDK College by Final Year CSE Students</p>
+    </div>
+  </footer>
+
+</body>
+</html>

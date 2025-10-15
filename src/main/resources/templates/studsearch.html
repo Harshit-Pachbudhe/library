@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Student - Search Library</title>
+  <link rel="stylesheet" href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css}">
+  <link rel="stylesheet" th:href="@{/css/studsearch.css}">
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div>
+      <div class="logo"><img th:src="@{/images/graduate.gif}" alt="book icon">BookTrack</div>
+            <div class="menu">
+        <a th:href="@{/studdash}" class="active"><i class="fa fa-home"></i> Dashboard </a>
+        <a th:href="@{/studsearch}" class="active"><i class="fa fa-search"></i> Search Books </a>
+        <a th:href="@{/studissue-return}"><i class="fa fa-exchange-alt"></i> Issue / Return</a>
+        <a th:href="@{/studreserve}"><i class="fa fa-bookmark"></i> Reservations</a>
+            </div>
+        </div>
+    <a th:href="@{/logout}"><i class="fa fa-sign-out"></i> Logout</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main">
+        <div class="topbar">
+            <!-- Search bar -->
+            <input type="text" placeholder="🔍 Search books, users..." class="search-bar">
+
+            <!-- Notifications -->
+            <div class="notification">
+              <a th:href="@{/studnotif}">
+                <i class="fa fa-bell fa-lg"></i>
+                <span class="badge">5</span>
+              </a>
+            </div>
+
+            <!-- Profile -->
+            <a th:href="@{/studprofile}" class="profile-link">
+                <img th:src="@{/images/profile.webp}" alt="Profile" class="profile-pic">
+            </a>
+        </div>
+
+  <div class="container">
+    <h3>📚 Search your favourite book here</h3>
+
+    <!-- 🔍 Search + Filters -->
+    <div class="filters">
+      <input type="text" id="searchInput" placeholder="Search by Title or Author...">
+
+      <select id="streamFilter">
+        <option value="">All Streams</option>
+        <option>CSE</option>
+        <option>IT</option>
+        <option>AI&DS</option>
+        <option>ETC</option>
+        <option>Mechanical</option>
+        <option>Civil</option>
+        <option>Electrical</option>
+      </select>
+
+      <select id="categoryFilter">
+        <option value="">All Types</option>
+        <option>Book</option>
+        <option>E-Book</option>
+        <option>Journal</option>
+        <option>Magazine</option>
+        <option>Research Paper</option>
+      </select>
+    </div>
+
+    <!-- 📑 Books Table -->
+    <table>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Stream</th>
+          <th>Type</th>
+          <th>Download</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="book : ${books}">
+          <td th:text="${book.title}">Book Title</td>
+          <td th:text="${book.author}">Author Name</td>
+          <td th:text="${book.stream}">Stream</td>
+          <td th:text="${book.type}">Type</td>
+          <td>
+            <a th:href="@{${book.downloadUrl}}" target="_blank"><i class="fa fa-download"></i></a>
+          </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(books)}">
+          <td colspan="5">No books found.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script th:src="@{/js/studsearch.js}"></script>
+</body>
+</html>

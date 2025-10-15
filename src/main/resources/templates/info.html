@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BookTrack</title>
+  <link rel="stylesheet" th:href="@{/css/info.css}" />
+</head>
+
+<body>
+  <header class="library-header">
+    <div class="header-overlay">
+      <div class="logo-area">
+        <img th:src="@{/images/graduate.gif}" alt="Logo" class="logo-icon" />
+        <div>
+          <h1 class="library-name">BookTrack</h1>
+          <p class="library-tagline">Student-Centric Library System</p>
+        </div>
+      </div>
+
+      <nav class="nav-links">
+        <a th:href="@{/index}">Home</a>
+        <a th:href="@{/info}" class="active">Information</a>
+        <a th:href="@{/help}">Help</a>
+        <a th:href="@{/librarian}">Librarian</a>
+        <a th:href="@{/login}">Log in</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="booktrack-library-info">
+    <h1>Library Information</h1>
+    <hr>
+
+    <section class="lib-section">
+      <h2>Contact Information</h2>
+      <p><strong>Address :</strong><br>
+        Library Department, KDK College of Engineering,<br>
+        Umrer Road, Nandanvan, Nagpur, Maharashtra – 440009</p>
+      <p><strong>Phone Number :</strong> +91-712-2711400</p>
+      <p><strong>Fax Number :</strong> +91-712-2711200</p>
+    </section>
+
+    <section class="lib-section">
+      <h2>Opening Hours</h2>
+      <p><strong>Monday - Friday :</strong><br>
+        Open : 08.00 AM<br>
+        Break : 12.00 - 01.00 PM<br>
+        Close : 08.00 PM</p>
+
+      <p><strong>Saturday :</strong><br>
+        Open : 08.00 AM<br>
+        Break : 12.00 - 01.00 PM<br>
+        Close : 05.00 PM</p>
+    </section>
+
+    <section class="lib-section">
+      <h2>Collections</h2>
+      <p>
+        Our library includes various collections ranging from fiction to science and engineering material.
+        Resources include printed books, digital content such as CDs and DVDs, newspapers, and monthly magazines.
+      </p>
+    </section>
+
+    <section class="lib-section">
+      <h2>Library Membership</h2>
+      <p>
+        To borrow books or access e-resources, students must register as members. Membership is free for all KDK
+        students, subject to the library rules and guidelines.
+      </p>
+    </section>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-left">
+        <h3>📚 BookTrack</h3>
+        <p>Student-Centric Library Management System</p>
+        <p>KDK College of Engineering, Nagpur</p>
+      </div>
+
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a th:href="@{/index}">Home</a></li>
+          <li><a th:href="@{/info}">Catalog</a></li>
+          <li><a th:href="@{/info}">E-Resources</a></li>
+          <li><a th:href="@{/info}">Feedback</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-contact">
+        <h4>Contact</h4>
+        <p>Email: library@kdkce.edu.in</p>
+        <p>Phone: +91-712-1234567</p>
+        <p>Address: KDK College Campus, Nagpur</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2025 BookTrack | Developed for KDK College by Final Year CSE Students</p>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,526 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookTrack - Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        /* --- General Styling --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", sans-serif;
+        }
+
+        body {
+            display: flex;
+            background: #f3f1f1;
+            color: #151414;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* --- Sidebar --- */
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background: #1c1c2b;
+            padding: 20px 10px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            color: #fff;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            text-align: center;
+            padding-top: 5px;
+            padding-bottom: 8px;
+            color: #3b82f6;
+            display: flex;
+
+
+        }
+
+        .logo img {
+            width: 35px;
+            height: 35px;
+            margin: 5px;
+        }
+
+        .menu a {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            margin: 5px 0;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .menu a:hover {
+            background: #2a2a3d;
+            color: #ffcc00;
+        }
+
+        .menu i {
+            margin-right: 10px;
+        }
+
+        /* --- Main Content --- */
+        .main {
+            margin-left: 260px;
+            padding: 20px;
+            flex: 1;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background: #f4f2f2;
+            /* Dark theme */
+            color: white;
+            border-bottom: 2px solid #444;
+        }
+
+        .search-bar {
+            flex: 1;
+            max-width: 700px;
+            padding: 8px 120px;
+            border: 1px solid #131212;
+            border-radius: 20px;
+            outline: none;
+        }
+
+        .notification {
+            position: relative;
+            margin: 0 20px;
+            cursor: pointer;
+            color: rgb(239, 239, 34);
+        }
+
+        .notification .badge {
+            position: absolute;
+            top: -5px;
+            right: -10px;
+            background: red;
+            color: rgb(212, 204, 204);
+            font-size: 12px;
+            padding: 2px 6px;
+            border-radius: 50%;
+        }
+
+        .profile-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .profile-pic {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            transition: transform 0.2s;
+        }
+
+        .profile-pic:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 8px #0f9;
+        }
+
+
+
+
+
+        /* --- Cards --- */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            padding: 20px;
+            border-radius: 12px;
+            background: linear-gradient(45deg, #ff6a00, #ffcc00);
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .card.green {
+            background: linear-gradient(45deg, #00b09b, #96c93d);
+        }
+
+        .card.blue {
+            background: linear-gradient(45deg, #2193b0, #6dd5ed);
+        }
+
+        .card.purple {
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+        }
+
+        .card.red {
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+        }
+
+        /* --- Sections --- */
+        .section {
+            margin-top: 30px;
+            background: #cacaf3;
+            padding: 20px;
+            border-radius: 12px;
+            border-color: #151414;
+            border: 2px solid #101010;
+        }
+
+        .section h2 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #342727;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        table th,
+        table td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        table th {
+            background: #838495;
+            color: #efeb0f;
+        }
+
+        table tr:nth-child(even) {
+            background: #f2f2f3;
+            color: #0a0a0a;
+        }
+
+        table tr:nth-child(odd) {
+            background: #f2f2f3;
+            color: #0a0a0a;
+        }
+
+
+        table tr:hover {
+            background: #cacaf3;
+            border: 1px solid #151414;
+        }
+
+        /* --- Modern Buttons --- */
+        .btn {
+            padding: 8px 14px;
+            margin: 3px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            color: #fff;
+        }
+
+        .btn.view {
+            background: linear-gradient(45deg, #2196F3, #1976D2);
+        }
+
+        .btn.view:hover {
+            background: linear-gradient(45deg, #1976D2, #0D47A1);
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(33, 150, 243, 0.5);
+        }
+
+        .btn.edit {
+            background: linear-gradient(45deg, #4CAF50, #388E3C);
+        }
+
+        .btn.edit:hover {
+            background: linear-gradient(45deg, #388E3C, #2E7D32);
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.5);
+        }
+
+        .btn.delete {
+            background: linear-gradient(45deg, #f44336, #d32f2f);
+        }
+
+        .btn.delete:hover {
+            background: linear-gradient(45deg, #d32f2f, #b71c1c);
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(244, 67, 54, 0.5);
+        }
+
+        .btn.block {
+            background: linear-gradient(45deg, #9E9E9E, #616161);
+        }
+
+        .btn.block:hover {
+            background: linear-gradient(45deg, #757575, #424242);
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(158, 158, 158, 0.5);
+        }
+
+        .btn.approve {
+            background: linear-gradient(45deg, #00C853, #2E7D32);
+        }
+
+        .btn.approve:hover {
+            background: linear-gradient(45deg, #2E7D32, #1B5E20);
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0, 200, 83, 0.5);
+        }
+
+        .btn.reject {
+            background: linear-gradient(45deg, #FF5722, #E64A19);
+        }
+
+        .btn.reject:hover {
+            background: linear-gradient(45deg, #E64A19, #BF360C);
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(255, 87, 34, 0.5);
+        }
+
+        .btn.return {
+            background: linear-gradient(45deg, #FFD600, #FFB300);
+            color: #222;
+        }
+
+        .btn.return:hover {
+            background: linear-gradient(45deg, #FFB300, #FF8F00);
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(255, 214, 0, 0.5);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+
+            .main {
+                margin-left: 210px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .sidebar {
+                display: none;
+            }
+
+            .main {
+                margin-left: 0;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div>
+            <div class="logo">
+                <img th:src="@{/images/graduate.gif}" alt="book icon">BookTrack
+            </div>
+            <div class="menu">
+                <a th:href="@{/admin/dashboard}"><i class="fa fa-home"></i> Dashboard </a>
+                <a th:href="@{/books/manage}"><i class="fa fa-book"></i> Manage Books</a>
+                <a th:href="@{/users/manage}"><i class="fa fa-users"></i> Manage Users</a>
+                <a th:href="@{/issue/manage}"><i class="fa fa-exchange-alt"></i> Issue / Return</a>
+                <a th:href="@{/reservations/manage}"><i class="fa fa-bookmark"></i> Reservations</a>
+            </div>
+        </div>
+        <a th:href="@{/logout}"><i class="fa fa-sign-out"></i> Logout</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main">
+        <div class="topbar">
+            <!-- Search bar -->
+            <input type="text" placeholder="🔍 Search books, users..." class="search-bar">
+
+            <!-- Notifications -->
+            <div class="notification">
+                <a th:href="@{/admin/notifications}">
+                    <i class="fa fa-bell fa-lg"></i>
+                    <span class="badge" th:text="${notificationCount}">0</span>
+                </a>
+            </div>
+
+            <!-- Profile -->
+            <a th:href="@{/admin/profile}" class="profile-link">
+                <img th:src="@{/images/profile.webp}" alt="Profile" class="profile-pic">
+            </a>
+        </div>
+
+        <br>
+        <h2>Admin Dashboard</h2>
+        <br>
+
+        <!-- Dashboard Cards (dynamic example with thymeleaf) -->
+        <div class="cards">
+            <div class="card orange">📚 <span th:text="${totalBooks}">0</span> <br> Total Books</div>
+            <div class="card green">✅ <span th:text="${availableBooks}">0</span> <br> Available</div>
+            <div class="card blue">📕 <span th:text="${borrowedBooks}">0</span> <br> Borrowed</div>
+            <div class="card red">⚠ <span th:text="${overdueBooks}">0</span> <br> Overdue</div>
+            <div class="card purple">👥 <span th:text="${studentsCount}">0</span> <br> Students</div>
+            <div class="card green">💰 ₹<span th:text="${fineCollected}">0</span> <br> Fine Collected</div>
+            <div class="card orange">🔥 <span th:text="${mostBorrowed}">-</span> <br> Most Borrowed</div>
+            <div class="card blue">🟢 <span th:text="${activeUsers}">0</span> <br> Active Users</div>
+        </div>
+
+        <!-- Manage Books -->
+        <div class="section">
+            <h2>📖 Manage Books 
+                <a th:href="@{/books/manage}">
+                    <button class="btn view">👁 View</button>
+                </a>
+            </h2>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Status</th>
+                    <th>Issued To</th>
+                    <th>Actions</th>
+                </tr>
+                <tr th:each="book : ${books}">
+                    <td th:text="${book.id}"></td>
+                    <td th:text="${book.title}"></td>
+                    <td th:text="${book.author}"></td>
+                    <td th:text="${book.status}"></td>
+                    <td th:text="${book.issuedTo != null ? book.issuedTo : '-'}"></td>
+                    <td>
+                        <a th:href="@{'/books/view/' + ${book.id}}"><button class="btn view">👁 View</button></a>
+                        <a th:href="@{'/books/edit/' + ${book.id}}"><button class="btn edit">✏ Edit</button></a>
+                        <a th:href="@{'/books/delete/' + ${book.id}}"><button class="btn delete">❌ Delete</button></a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Manage Users -->
+        <div class="section">
+            <h2>👥 Manage Students / Faculty 
+                <a th:href="@{/users/manage}"><button class="btn view">👁 View</button></a>
+            </h2>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Course</th>
+                    <th>Books Borrowed</th>
+                    <th>Due</th>
+                    <th>Actions</th>
+                </tr>
+                <tr th:each="user : ${users}">
+                    <td th:text="${user.id}"></td>
+                    <td th:text="${user.name}"></td>
+                    <td th:text="${user.course}"></td>
+                    <td th:text="${user.booksBorrowed}"></td>
+                    <td th:text="${user.dueBooks}"></td>
+                    <td>
+                        <a th:href="@{'/users/view/' + ${user.id}}"><button class="btn view">👁 View</button></a>
+                        <a th:href="@{'/users/edit/' + ${user.id}}"><button class="btn edit">📝 Edit</button></a>
+                        <a th:href="@{'/users/block/' + ${user.id}}"><button class="btn block">🚫 Block</button></a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Issue/Return -->
+        <div class="section">
+            <h2>📕 Issue & Return 
+                <a th:href="@{/issue/manage}"><button class="btn view">👁 View</button></a>
+            </h2>
+            <table>
+                <tr>
+                    <th>User</th>
+                    <th>Book</th>
+                    <th>Issue Date</th>
+                    <th>Due Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                <tr th:each="issue : ${issues}">
+                    <td th:text="${issue.userName}"></td>
+                    <td th:text="${issue.bookTitle}"></td>
+                    <td th:text="${issue.issueDate}"></td>
+                    <td th:text="${issue.dueDate}"></td>
+                    <td th:text="${issue.status}"></td>
+                    <td>
+                        <a th:href="@{'/issue/return/' + ${issue.id}}"><button class="btn return">✅ Return</button></a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Reservations -->
+        <div class="section">
+            <h2>📌 Reservations
+                <a th:href="@{/reservations/manage}">
+                    <button class="btn view">👁 View</button>
+                </a>
+            </h2>
+            <table>
+                <tr>
+                    <th>User</th>
+                    <th>Book</th>
+                    <th>Request Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                <tr th:each="res : ${reservations}">
+                    <td th:text="${res.userName}"></td>
+                    <td th:text="${res.bookTitle}"></td>
+                    <td th:text="${res.requestDate}"></td>
+                    <td th:text="${res.status}"></td>
+                    <td>
+                        <a th:href="@{'/reservations/approve/' + ${res.id}}"><button class="btn approve">✅ Approve</button></a>
+                        <a th:href="@{'/reservations/reject/' + ${res.id}}"><button class="btn reject">❌ Reject</button></a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
+
+
+

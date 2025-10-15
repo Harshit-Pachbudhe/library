@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookTrack - Admin Dashboard</title>
+
+    <!-- Font Awesome (external CSS) -->
+    <link rel="stylesheet" href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css}">
+
+    <!-- Local CSS file (must be inside src/main/resources/static/css/) -->
+    <link rel="stylesheet" th:href="@{/css/adminmngbook.css}">
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div>
+            <div class="logo">
+                <img th:src="@{/images/graduate.gif}" alt="book icon"> BookTrack
+            </div>
+            <div class="menu">
+                <a th:href="@{/admin/dashboard}"><i class="fa fa-home"></i> Dashboard</a>
+                <a th:href="@{/admin/books}"><i class="fa fa-book"></i> Manage Books</a>
+                <a th:href="@{/admin/users}"><i class="fa fa-users"></i> Manage Users</a>
+                <a th:href="@{/admin/loans}"><i class="fa fa-exchange-alt"></i> Issue / Return</a>
+                <a th:href="@{/admin/reservations}"><i class="fa fa-bookmark"></i> Reservations</a>
+            </div>
+        </div>
+        <a th:href="@{/logout}"><i class="fa fa-sign-out"></i> Logout</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main">
+        <div class="topbar">
+            <!-- Search bar -->
+            <input type="text" placeholder="🔍 Search books, users..." class="search-bar">
+
+            <!-- Notifications -->
+            <div class="notification">
+                <a th:href="@{/admin/notifications}">
+                    <i class="fa fa-bell fa-lg"></i>
+                    <span class="badge">5</span>
+                </a>
+            </div>
+
+            <!-- Profile -->
+            <a th:href="@{/admin/profile}" class="profile-link">
+                <img th:src="@{/images/profile.webp}" alt="Profile" class="profile-pic">
+            </a>
+        </div>
+
+        <!-- Main Section -->
+        <main>
+            <div class="card">
+                <h3>Books Inventory</h3>
+
+                <div class="flex" style="margin-bottom:10px">
+                    <input id="bookTitle" placeholder="Book Title" style="padding:6px;flex:1">
+                    <input id="bookAuthor" placeholder="Author" style="padding:6px;flex:1">
+                    <input id="bookCopies" type="number" placeholder="Copies" style="padding:6px;width:80px">
+                    <button class="btn primary" id="addBook">Add</button>
+                </div>
+
+                <table id="booksTable">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th>Copies</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Dynamically populated with Thymeleaf -->
+                        <tr th:each="book : ${books}">
+                            <td th:text="${book.title}">Book Title</td>
+                            <td th:text="${book.author}">Author</td>
+                            <td th:text="${book.copies}">Copies</td>
+                            <td>
+                                <button class="btn edit">Edit</button>
+                                <button class="btn delete">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Local JS file (inside static/js/) -->
+    <script th:src="@{/js/admindash.js}"></script>
+</body>
+</html>

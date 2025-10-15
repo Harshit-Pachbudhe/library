@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BookTrack | Admin Profile</title>
+  <link rel="stylesheet" th:href="@{/css/adminprofile.css}">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f9f9f9;
+    }
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #0f172a;
+    }
+    .profile-pic {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .profile-pic img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #0f172a;
+    }
+    .profile-pic input {
+      display: block;
+      margin: 10px auto;
+    }
+    form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    label {
+      font-weight: bold;
+      margin-bottom: 5px;
+      display: block;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    .full-width {
+      grid-column: span 2;
+    }
+    .btn {
+      background: #0f172a;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 16px;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background: #1e293b;
+    }
+    input:focus {
+      border-color: #0f172a;
+      outline: none;
+      box-shadow: 0 0 5px rgba(15,23,42,0.3);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2><img th:src="@{/images/graduate.gif}" width="80" height="80" alt="graduate logo"></h2>
+    <h2>BookTrack</h2>
+
+    <!-- Profile Picture -->
+    <div class="profile-pic">
+      <div>
+        <img th:src="${admin.profileImage != null} ? @{${admin.profileImage}} : @{https://via.placeholder.com/120}" 
+             id="profileImage" alt="Profile">
+        <input type="file" name="profileImage" accept="image/*" onchange="previewImage(event)">
+      </div>
+    </div>
+
+    <!-- Profile Form -->
+    <form th:action="@{/admin/updateProfile}" method="post" th:object="${admin}" enctype="multipart/form-data">
+      <div>
+        <label for="name">Full Name</label>
+        <input type="text" id="name" th:field="*{name}" placeholder="Enter full name" required>
+      </div>
+
+      <div>
+        <label for="adminId">Admin ID</label>
+        <input type="text" id="adminId" th:field="*{adminId}" disabled>
+      </div>
+
+      <div>
+        <label for="email">Email</label>
+        <input type="email" id="email" th:field="*{email}" placeholder="Enter email" required>
+      </div>
+
+      <div>
+        <label for="phone">Phone</label>
+        <input type="text" id="phone" th:field="*{phone}" placeholder="+91 " pattern="\+91\d{10}" title="Enter a valid 10-digit Indian phone number">
+      </div>
+
+      <div class="full-width">
+        <label for="password">Password</label>
+        <input type="password" id="password" th:field="*{password}" placeholder="Enter new password (leave blank to keep old)">
+      </div>
+
+      <div class="full-width">
+        <button type="submit" class="btn">Update Profile</button>
+      </div>
+    </form>
+  </div>
+
+  <script th:src="@{/js/adminprofile.js}"></script>
+  <script>
+    // Preview Profile Image
+    function previewImage(event) {
+      const img = document.getElementById("profileImage");
+      if(img.src) URL.revokeObjectURL(img.src);
+      img.src = URL.createObjectURL(event.target.files[0]);
+    }
+  </script>
+
+</body>
+</html>

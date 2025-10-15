@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>BookTrack | Student Profile</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f9f9f9;
+    }
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #0f172a;
+    }
+    .profile-pic {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .profile-pic img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #0f172a;
+    }
+    .profile-pic input {
+      display: block;
+      margin: 10px auto;
+    }
+    form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    label {
+      font-weight: bold;
+      margin-bottom: 5px;
+      display: block;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    .full-width {
+      grid-column: span 2;
+    }
+    .btn {
+      background: #0f172a;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 16px;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background: #1e293b;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+  <h2><img th:src="@{/images/graduate.gif}" width="80" height="80" alt="graduate logo"></h2>
+    <h2>BookTrack</h2>
+    
+    <!-- Profile Picture -->
+    <div class="profile-pic">
+      <div>
+        <h2>
+          <img th:if="${student != null and student.profileImage != null}" th:src="@{${student.profileImage}}" id="profileImage" alt="Profile">
+          <img th:unless="${student != null and student.profileImage != null}" th:src="@{https://via.placeholder.com/120}" id="profileImage" alt="Profile">
+        </h2>
+        <input type="file" accept="image/*" onchange="previewImage(event)">
+      </div>
+    </div>
+
+    <!-- Profile Form -->
+    <form id="profileForm" th:action="@{/student/update}" method="post">
+      <div>
+        <label>Full Name</label>
+        <input type="text" id="name" th:value="${student.name}">
+      </div>
+      <div>
+        <label>Enrollment No.</label>
+        <input type="text" id="enroll" th:value="${student.enrollment}" disabled>
+      </div>
+      <div>
+        <label>Email</label>
+        <input type="email" id="email" th:value="${student.email}">
+      </div>
+      <div>
+        <label>Phone</label>
+        <input type="text" id="phone" th:value="${student.phone}">
+      </div>
+      <div>
+        <label>Department</label>
+        <select id="dept" th:value="${student.department}">
+          <option>CSE</option>
+          <option>IT</option>
+          <option>AI&DS</option>
+          <option>ETC</option>
+          <option>ME</option>
+          <option>CE</option>
+          <option>EE</option>
+        </select>
+      </div>
+      <div>
+        <label>Year</label>
+        <select id="year" th:value="${student.year}">
+          <option>1st Year</option>
+          <option>2nd Year</option>
+          <option>3rd Year</option>
+          <option>Final Year</option>
+        </select>
+      </div>
+      <div class="full-width">
+        <label>Password</label>
+        <input type="password" id="password" th:value="${student.password}">
+      </div>
+      <div class="full-width">
+        <button type="submit" class="btn">Update Profile</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    // Preview Profile Image
+    function previewImage(event) {
+      const img = document.getElementById("profileImage");
+      img.src = URL.createObjectURL(event.target.files[0]);
+    }
+  </script>
+
+</body>
+</html>

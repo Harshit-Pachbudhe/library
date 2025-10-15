@@ -1,0 +1,69 @@
+At line:1 char:390
++ ... Output ($u - -  + 
+$_.Exception.Response.StatusCode.Value__) } else {  ...
++                                                      
+            ~
+The Try statement is missing its Catch or Finally 
+block.
+At line:1 char:416
++ ... tion.Response.StatusCode.Value__) } else { 
+Write-Output ($u - no resp ...
++                                                      
+            ~
+You must provide a value expression following the '-' 
+operator.
+At line:1 char:417
++ ... n.Response.StatusCode.Value__) } else { 
+Write-Output ($u - no respons ...
++                                                      
+          ~~
+Unexpected token 'no' in expression or statement.
+At line:1 char:416
++ ... tion.Response.StatusCode.Value__) } else { 
+Write-Output ($u - no resp ...
++                                                      
+            ~
+Missing closing ')' in expression.
+At line:1 char:396
++ ... ($u - -  + 
+$_.Exception.Response.StatusCode.Value__) } else { 
+Write-O ...
++                                                      
+           ~
+Missing closing '}' in statement block or type 
+definition.
+At line:1 char:255
++ ... //localhost:8080/images/profile.webp'); 
+foreach($u in $urls){ try{ $r ...
++                                                      
+           ~
+Missing closing '}' in statement block or type 
+definition.
+At line:1 char:428
++ ... se.StatusCode.Value__) } else { Write-Output ($u 
+- no response) } } }
++                                                      
+             ~
+Unexpected token ')' in expression or statement.
+At line:1 char:430
++ ... se.StatusCode.Value__) } else { Write-Output ($u 
+- no response) } } }
++                                                      
+               ~
+Unexpected token '}' in expression or statement.
+At line:1 char:432
++ ... se.StatusCode.Value__) } else { Write-Output ($u 
+- no response) } } }
++                                                      
+                 ~
+Unexpected token '}' in expression or statement.
+At line:1 char:434
++ ... se.StatusCode.Value__) } else { Write-Output ($u 
+- no response) } } }
++                                                      
+                   ~
+Unexpected token '}' in expression or statement.
+    + CategoryInfo          : ParserError: (:) [], Par 
+   entContainsErrorRecordException
+    + FullyQualifiedErrorId : MissingCatchOrFinally
+ 

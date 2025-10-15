@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Login | BookTrack - KDK College</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      background: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login-container {
+      background-color: white;
+      padding: 30px;
+      width: 350px;
+      border-radius: 10px;
+      box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .login-container h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 25px;
+    }
+
+    .login-container input[type="email"],
+    .login-container input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background: #fafafa;
+    }
+
+    .login-container input:focus {
+      outline: none;
+      border-color: #4b3cc9;
+    }
+
+    .login-container button {
+      width: 100%;
+      padding: 12px;
+      background: #4b3cc9;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+
+    .login-container button:hover {
+      background: #372ea8;
+    }
+
+    .login-container .links {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+    .login-container .links a {
+      color: #4b3cc9;
+      text-decoration: none;
+    }
+
+    .login-container .links a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="login-container">
+    <h2>BookTrack Login</h2>
+
+    <form th:action="@{/user/login}" method="post" th:object="${user}">
+  <input type="email" placeholder="Email" th:field="*{email}" required />
+  <input type="password" placeholder="Password" th:field="*{password}" required />
+  <button type="submit">Login</button>
+</form>
+
+
+
+    <div class="links">
+      <p>Don't have an account? <a th:href="@{/user/register}">Register</a></p>
+      <p><a href="#">Forgot Password?</a></p>
+    </div>
+
+    <div th:if="${error}" style="color:red; text-align:center; margin-top:10px;">
+      <p th:text="${error}"></p>
+    </div>
+  </div>
+</body>
+</html>

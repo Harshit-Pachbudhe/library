@@ -1,0 +1,228 @@
+/* Reset */
+  * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", sans-serif;
+        }
+
+        body {
+            display: flex;
+            background: #f3f1f1;
+            color: #151414;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* --- Sidebar --- */
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background: #1c1c2b;
+            padding: 20px 10px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            color: #fff;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            text-align: center;
+            padding-top: 5px;
+            padding-bottom: 8px;
+            color: #3b82f6;
+            display: flex;
+
+
+        }
+
+        .logo img {
+            width: 35px;
+            height: 35px;
+            margin: 5px;
+        }
+
+        .menu a {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            margin: 5px 0;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .menu a:hover {
+            background: #2a2a3d;
+            color: #ffcc00;
+        }
+
+        .menu i {
+            margin-right: 10px;
+        }
+
+        /* --- Main Content --- */
+        .main {
+            margin-left: 260px;
+            padding: 20px;
+            flex: 1;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background: #f4f2f2;
+            /* Dark theme */
+            color: white;
+            border-bottom: 2px solid #444;
+        }
+
+        .search-bar {
+            flex: 1;
+            max-width: 700px;
+            padding: 8px 120px;
+            border: 1px solid #131212;
+            border-radius: 20px;
+            outline: none;
+        }
+
+        .notification {
+            position: relative;
+            margin: 0 20px;
+            cursor: pointer;
+            color: rgb(239, 239, 34);
+        }
+
+        .notification .badge {
+            position: absolute;
+            top: -5px;
+            right: -10px;
+            background: red;
+            color: rgb(212, 204, 204);
+            font-size: 12px;
+            padding: 2px 6px;
+            border-radius: 50%;
+        }
+
+        .profile-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .profile-pic {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            transition: transform 0.2s;
+        }
+
+        .profile-pic:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 8px #0f9;
+        }
+
+
+
+
+/* Header */
+
+
+header h1 {
+  font-size: 1.8rem;
+  margin-bottom: 6px;
+}
+
+/* Container */
+.container {
+  width: 85%;
+  margin: 30px auto;
+}
+
+/* Card */
+.card {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.card h2 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+/* Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+th {
+  background: #3f51b5;
+  color: white;
+  padding: 12px;
+}
+
+td {
+  text-align: center;
+  padding: 10px;
+}
+
+tr:nth-child(even) {
+  background: #f9f9f9;
+}
+
+.status {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+.status.active {
+  background: #c8e6c9;
+  color: #2e7d32;
+}
+
+.status.completed {
+  background: #ffcdd2;
+  color: #b71c1c;
+}
+
+.btn-delete {
+  padding: 6px 12px;
+  background: crimson;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-delete:hover {
+  background: darkred;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 15px;
+  margin-top: 20px;
+  background: #f1f1f1;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  font-size: 0.9rem;
+  color: #555;
+}

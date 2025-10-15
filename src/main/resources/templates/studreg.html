@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Registration - College Library</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: url('@{/images/login page images.jpg}') no-repeat center center fixed;
+      background-size: cover;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .register-box {
+      background-color: #242323;
+      padding: 50px;
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(59, 59, 59, 0.2);
+      width: 400px;
+    }
+
+    .register-box h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #ffffff;
+    }
+
+    .register-box input,
+    .register-box select {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #a8a8a8;
+    }
+
+    .register-box button {
+      width: 100%;
+      padding: 12px;
+      background-color: #248fd5;
+      border: none;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+
+    .register-box button:hover {
+      background-color: #0056b3;
+    }
+
+    .register-box small {
+      display: block;
+      margin-top: 20px;
+      text-align: center;
+      color: #c8c7c7;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="register-box">
+    <h2>Student Registration</h2>
+
+    <form th:action="@{/user/register}" method="post" th:object="${user}">
+      <input type="text" placeholder="Full Name" th:field="*{fullName}" required />
+      <input type="email" placeholder="Email Address" th:field="*{email}" required />
+      <input type="text" placeholder="Student ID / Enrollment" th:field="*{studentId}" required />
+      <input type="password" placeholder="Create Password" th:field="*{password}" required />
+
+      <button type="submit">Register</button>
+
+      <small>Already registered? 
+        <a th:href="@{/user/login}" style="color:#007bff;">Login here</a>
+      </small>
+    </form>
+
+    <div th:if="${error}" style="color:red; text-align:center; margin-top:10px;">
+      <p th:text="${error}"></p>
+    </div>
+
+    <div th:if="${success}" style="color:lightgreen; text-align:center; margin-top:10px;">
+      <p th:text="${success}"></p>
+    </div>
+  </div>
+</body>
+</html>
