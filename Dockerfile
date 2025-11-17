@@ -1,25 +1,25 @@
-# ====== Build Stage ======
+# ===== Build Stage =====
 FROM eclipse-temurin:17-jdk AS build
 WORKDIR /app
 
 # Copy Maven wrapper & config
-COPY BookTrack-Library/mvnw .
-COPY BookTrack-Library/.mvn .mvn
+COPY library/mvnw .
+COPY library/.mvn .mvn
 
 # Copy pom.xml
-COPY BookTrack-Library/pom.xml .
+COPY library/pom.xml .
 
 # Download dependencies
 RUN ./mvnw dependency:go-offline
 
 # Copy source code
-COPY BookTrack-Library/src src
+COPY library/src src
 
 # Build the application
 RUN ./mvnw package -DskipTests
 
 
-# ====== Run Stage ======
+# ===== Run Stage =====
 FROM eclipse-temurin:17-jdk
 WORKDIR /app
 
@@ -27,5 +27,4 @@ WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 
 EXPOSE 8080
-
 ENTRYPOINT ["java", "-jar", "app.jar"]
