@@ -85,6 +85,11 @@
   <div class="login-container">
     <h2>BookTrack Login</h2>
 
+
+    <div th:if="${success}" class="message" th:text="${success}"></div>
+    <div th:if="${error}" class="error" th:text="${error}"></div>
+
+    
     <form th:action="@{/user/login}" method="post" th:object="${user}">
   <input type="email" placeholder="Email" th:field="*{email}" required />
   <input type="password" placeholder="Password" th:field="*{password}" required />

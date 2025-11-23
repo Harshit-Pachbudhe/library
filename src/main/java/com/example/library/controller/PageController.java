@@ -11,12 +11,15 @@ import com.example.library.model.Book;
 import com.example.library.model.User;
 import com.example.library.service.BookService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class PageController {
 
     @Autowired
     private BookService bookService;
 
+    // --- Existing mappings ---
     @GetMapping({"/","/index"})
     public String index() { return "index"; }
 
@@ -32,36 +35,90 @@ public class PageController {
     @GetMapping("/login")
     public String login() { return "login"; }
 
-    // --- Student & Admin handled by their own controllers ---
-    @GetMapping("/studdash")
-    public String studentDashboard() { return "studdash"; }
+    // --------------------------
+    // Student Dashboard Mapping
+    // --------------------------
+   @GetMapping("/studdash")
+    public String studentDashboard(HttpSession session, Model model) {
+        // 1. Get logged-in user from session
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if (loggedInUser == null) {
+            return "redirect:/user/login";
+        }
 
+        // 2. Load all books
+        List<Book> books = bookService.getAllBooks();
+
+        // 3. Pass to model
+        model.addAttribute("user", loggedInUser);
+        model.addAttribute("books", books);
+
+        // 4. Dynamically compute department slug for each book (for CSS)
+        books.forEach(book -> {
+            if (book.getDepartment() != null) {
+                String deptSlug = book.getDepartment().replaceAll("&", "_").replaceAll("\\s+", "_");
+                book.setDepartment(deptSlug); // overwrite for easier use in Thymeleaf class
+            } else {
+                book.setDepartment("DEFAULT");
+            }
+        });
+
+        return "studdash";
+    }
+    // --------------------------
+    // Other student pages
+    // --------------------------
     @GetMapping("/studsearch")
-    public String studentSearch(Model model) {
+    public String studentSearch(Model model, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if (loggedInUser == null) return "redirect:/user/login";
+
         List<Book> books = bookService.getAllBooks();
         model.addAttribute("books", books);
+        model.addAttribute("session", session);
         return "studsearch";
     }
 
     @GetMapping("/studreserve")
-    public String studentReserve(Model model) {
+    public String studentReserve(Model model, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if (loggedInUser == null) return "redirect:/user/login";
+
         model.addAttribute("books", bookService.getAllBooks());
-        model.addAttribute("student", new User());
+        model.addAttribute("student", loggedInUser);
+        model.addAttribute("session", session);
         return "studreserve";
     }
 
     @GetMapping("/studissue-return")
-    public String studentIssueReturn() { return "studissue-return"; }
+    public String studentIssueReturn(HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if (loggedInUser == null) return "redirect:/user/login";
 
-    @GetMapping("/studprofile")
-    public String studentProfile(Model model) {
-        model.addAttribute("student", new User());
+        return "studissue-return";
+    }
+
+   @GetMapping("/studprofile")
+    public String studentProfile(HttpSession session, Model model) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if (loggedInUser == null) {
+            return "redirect:/user/login";
+        }
+        model.addAttribute("user", loggedInUser);
         return "studprofile";
     }
 
     @GetMapping("/studnotif")
-    public String studentNotif() { return "studnotif"; }
+    public String studentNotif(HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if (loggedInUser == null) return "redirect:/user/login";
+
+        return "studnotif";
+    }
 
     @GetMapping("/logout")
-    public String logout() { return "redirect:/"; }
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
+    }
 }

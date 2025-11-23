@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.library.model.Book;
+import com.example.library.model.User;
 import com.example.library.repository.BookRepository;
 
 @Service
@@ -19,9 +20,10 @@ public class BookService {
         return bookRepository.findAll();
     }
 
-    public Optional<Book> getBookById(Long id) {
-        return bookRepository.findById(id);
-    }
+   public Optional<Book> getBookById(Long id) {
+    return bookRepository.findById(id);
+}
+
 
     public Book saveBook(Book book) {
         return bookRepository.save(book);
@@ -29,6 +31,12 @@ public class BookService {
 
     public void deleteBook(Long id) {
         bookRepository.deleteById(id);
+    
+    }
+
+    public void reserveBook(Book book, User user) {
+        book.setReservedBy(user);
+        bookRepository.save(book);
     }
 
 }

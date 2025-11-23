@@ -20,4 +20,13 @@ public class User {
     private String email;
     private String studentId;
     private String password;
+
+	// Additional fields like role, etc., can be added here
+	private String name;
+   private String enrollment;
+private String phone;
+private String department;
+private String year;
+private String profileImage;
+
 }
