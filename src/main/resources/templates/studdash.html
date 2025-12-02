@@ -5,35 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BookTrack - Student Dashboard</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" th:href="@{/css/studdash.css}">
-    <style>
-        .search-bar { padding: 8px; width: 250px; border-radius: 5px; border: 1px solid #ccc; }
-        .cards { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 20px; }
-        .card { flex: 1 1 calc(33% - 20px); background: #f1f1f1; padding: 15px; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); transition: transform 0.2s; }
-        .card:hover { transform: translateY(-5px); }
-        .card h3 { margin-top: 0; color: white; padding: 5px 10px; border-radius: 5px; }
-        .card p { margin: 5px 0; }
-        .btn { background: #0f172a; color: white; padding: 8px 12px; border: none; border-radius: 5px; cursor: pointer; text-decoration: none; display: inline-block; }
-        .btn:hover { background: #1e293b; }
 
-        /* Department Colors */
-        .yellow { background-color: #facc15; }   /* CSE */
-        .pink { background-color: #f43f5e; }     /* AI & DS */
-        .purple { background-color: #8b5cf6; }   /* AI / EE */
-        .blue { background-color: #3b82f6; }     /* Social Media / IT */
-        .green { background-color: #10b981; }    /* ML / CE */
-        .orange { background-color: #f97316; }   /* IoT / ME */
-        .red { background-color: #ef4444; }      /* Space Tech */
-        .teal { background-color: #22d3ee; }     /* DSA */
-        .dept-DEFAULT { background-color: #6b7280; } /* fallback */
-    </style>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Local CSS -->
+    <link rel="stylesheet" th:href="@{/css/studdash.css}">
 </head>
+
 <body>
+
     <!-- Sidebar -->
     <div class="sidebar">
         <div>
-            <div class="logo"><img th:src="@{/images/graduate.gif}" alt="book icon">BookTrack</div>
+            <div class="logo">
+                <img th:src="@{/images/graduate.gif}" alt="book icon">BookTrack
+            </div>
+
             <div class="menu">
                 <a th:href="@{/studdash}" class="active"><i class="fa fa-home"></i> Dashboard </a>
                 <a th:href="@{/studsearch}"><i class="fa fa-search"></i> Search Books </a>
@@ -41,13 +29,17 @@
                 <a th:href="@{/studreserve}"><i class="fa fa-bookmark"></i> Reservations</a>
             </div>
         </div>
+
         <a th:href="@{/logout}"><i class="fa fa-sign-out"></i> Logout</a>
     </div>
 
     <!-- Main Content -->
     <div class="main">
+
+        <!-- Top Bar -->
         <div class="topbar">
-            <input type="text" placeholder="🔍 Search books, users..." class="search-bar" id="searchInput">
+
+            <input type="text" placeholder="🔍 Search books, users..." class="search-bar">
 
             <div class="notification">
                 <a th:href="@{/studnotif}">
@@ -56,101 +48,104 @@
                 </a>
             </div>
 
+            <!-- Dynamic Profile -->
             <a th:href="@{/studprofile}" class="profile-link">
-                <img th:src="@{${session.loggedInUser.profileImage != null ? session.loggedInUser.profileImage : '/images/profile.webp'}}" 
-                     alt="Profile" class="profile-pic" style="width:40px; height:40px; border-radius:50%;">
+                <img th:src="@{${session.loggedInUser.profileImage != null ? session.loggedInUser.profileImage : '/images/profile.webp'}}"
+     alt="Profile"
+     style="width:40px; height:40px; border-radius:50%; object-fit:cover;">
+
+                 
             </a>
         </div>
 
         <h2>Library Dashboard</h2>
+        <br>
 
-        <div class="cards" id="bookCards">
-            <!-- Static Department Cards -->
+        <div class="cards">
+
+            <!-- Static Cards -->
             <div class="card yellow">
                 <h3>Computer Science & Engineering</h3>
                 <p>10 subjects | 3 Research Papers</p>
                 <button class="btn">View</button>
             </div>
+
             <div class="card pink">
                 <h3>AI & DS</h3>
                 <p>5 Journals | 2 Research Papers</p>
                 <button class="btn">View</button>
             </div>
+
             <div class="card purple">
                 <h3>Artificial Intelligence</h3>
                 <p>22 Subjects | 8 Journals</p>
                 <button class="btn">View</button>
             </div>
+
             <div class="card blue">
                 <h3>Social Media Course</h3>
                 <p></p>
                 <button class="btn">View</button>
             </div>
+
             <div class="card green">
                 <h3>Machine Learning</h3>
                 <p>Books | Articles</p>
                 <button class="btn">View</button>
             </div>
+
             <div class="card orange">
                 <h3>IoT</h3>
                 <p>16 Books | 4 Articles</p>
                 <button class="btn">View</button>
             </div>
+
             <div class="card teal">
                 <h3>Data Structure & Algorithms</h3>
                 <p>Books</p>
                 <button class="btn">View</button>
             </div>
+
             <div class="card red">
                 <h3>Space Technology</h3>
                 <p>Books | Latest Journals</p>
                 <button class="btn">View</button>
             </div>
+
             <div class="card blue">
                 <h3>Information Technology (IT)</h3>
                 <p>Digital Resources & e-books</p>
                 <button class="btn">View</button>
             </div>
+
             <div class="card green">
                 <h3>Civil Engineering</h3>
                 <p>Surveying & Design References</p>
                 <button class="btn">View</button>
             </div>
+
             <div class="card orange">
                 <h3>Mechanical Engineering</h3>
                 <p>Design Manuals & CAD Guides</p>
                 <button class="btn">View</button>
             </div>
+
             <div class="card purple">
                 <h3>Electrical Engineering</h3>
                 <p>Circuits & Power Systems Books</p>
                 <button class="btn">View</button>
             </div>
 
-            <!-- Dynamic Book Cards from DB -->
-            <div class="card" th:each="book : ${books}" th:data-title="${book.title}" 
-                 th:classappend="' dept-' + (${book.department} != null ? ${book.department.replaceAll('&','_').replaceAll(' ','_')} : 'DEFAULT')">
-                <h3 th:text="${book.title}">Book Title</h3>
-                <p>Author: <span th:text="${book.author}">Author Name</span></p>
-                <p>Publisher: <span th:text="${book.publisher}">Publisher</span></p>
-                <p>Year: <span th:text="${book.yearPublished}">2025</span></p>
+            <!-- If Later You Want Dynamic Books -->
+            <!--
+            <div class="card" th:each="book : ${books}">
+                <h3 th:text="${book.title}"></h3>
+                <p>Author: <span th:text="${book.author}"></span></p>
                 <a th:href="@{/studreserve(bookId=${book.id})}" class="btn">View / Reserve</a>
             </div>
+            -->
         </div>
     </div>
 
-    <script>
-        // Live search filter
-        const searchInput = document.getElementById('searchInput');
-        const cards = document.querySelectorAll('#bookCards .card');
-
-        searchInput.addEventListener('input', () => {
-            const query = searchInput.value.toLowerCase();
-            cards.forEach(card => {
-                const title = card.getAttribute('data-title') ? card.getAttribute('data-title').toLowerCase() : '';
-                card.style.display = title.includes(query) ? 'block' : 'none';
-            });
-        });
-    </script>
 </body>
 </html>

@@ -94,12 +94,22 @@
   <div th:if="${error}" class="error" th:text="${error}"></div>
 
   <!-- Profile Picture -->
-  <div class="profile-pic">
-    <img th:if="${student != null and student.profileImage != null}" th:src="@{${student.profileImage}}" id="profileImage" alt="Profile">
-    <img th:unless="${student != null and student.profileImage != null}" th:src="@{https://via.placeholder.com/120}" id="profileImage" alt="Profile">
-    <input type="file" accept="image/*" onchange="previewImage(event)">
-  </div>
+<div class="profile-pic">
+    <img th:if="${student != null and student.profileImage != null}"
+         th:src="@{${student.profileImage}}"
+         id="profileImage" alt="Profile">
 
+    <img th:unless="${student != null and student.profileImage != null}"
+         th:src="@{https://via.placeholder.com/120}"
+         id="profileImage" alt="Profile">
+
+    <!-- FIXED File Input -->
+    <input type="file"
+           name="profileImageFile"
+           accept="image/*"
+           form="profileForm"
+           onchange="previewImage(event)">
+</div>
   <!-- Profile Update Form -->
   <form th:action="@{/user/update}" method="post" enctype="multipart/form-data">
     <div>

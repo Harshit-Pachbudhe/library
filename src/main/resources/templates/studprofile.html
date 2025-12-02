@@ -5,135 +5,198 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BookTrack | Student Profile</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" th:href="@{/css/studdash.css}">
+
     <style>
-        /* Layout */
-        .main { margin-left: 220px; padding: 30px; }
-        .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        body {
+            font-family: "Inter", Arial, sans-serif;
+            margin: 0;
+            background: #f1f5f9;
+        }
 
-        /* Profile Section */
-        .profile-container {
-            max-width: 800px;
-            margin: 0 auto 50px auto;
+        .container {
+            max-width: 750px;
+            margin: 40px auto;
             background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
         }
-        .profile-container h2 { text-align: center; margin-bottom: 30px; color: #0f172a; }
 
-        .profile-pic { display: flex; flex-direction: column; align-items: center; margin-bottom: 30px; }
-        .profile-pic img {
-            width: 120px; height: 120px; border-radius: 50%; object-fit: cover;
-            border: 3px solid #0f172a; margin-bottom: 10px;
+        .title-area img {
+            display: block;
+            margin: auto;
         }
-        .profile-pic input { display: block; }
 
-        form { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        label { font-weight: bold; margin-bottom: 5px; display: block; }
-        input, select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 8px; }
-        .full-width { grid-column: span 2; }
-        .btn { background: #0f172a; color: white; padding: 12px; border: none; border-radius: 8px; cursor: pointer; width: 100%; font-size: 16px; transition: background 0.3s; }
-        .btn:hover { background: #1e293b; }
-
-        /* Department Cards */
-        .cards { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 40px; justify-content: center; }
-        .card {
-            flex: 1 1 calc(33% - 20px); min-width: 220px; padding: 15px; border-radius: 10px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1); transition: transform 0.2s; color: white;
+        .title-area h2 {
             text-align: center;
+            font-size: 28px;
+            margin-top: 10px;
+            color: #0f172a;
         }
-        .card:hover { transform: translateY(-5px); }
-        .card h3 { margin-top: 0; padding: 5px 10px; border-radius: 5px; }
-        .card p { margin: 10px 0; }
 
-        /* Department Colors */
-        .dept-CSE { background-color: #facc15; }   /* Yellow */
-        .dept-IT { background-color: #22d3ee; }    /* Teal */
-        .dept-AI_DS { background-color: #8b5cf6; } /* Purple */
-        .dept-ETC { background-color: #f43f5e; }   /* Pink */
-        .dept-ME { background-color: #10b981; }    /* Green */
-        .dept-CE { background-color: #f97316; }    /* Orange */
-        .dept-EE { background-color: #3b82f6; }    /* Blue */
-        .dept-DEFAULT { background-color: #6b7280; } /* Gray */
+        /* Profile Image */
+        .profile-pic {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .profile-pic img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #0f172a;
+            margin-bottom: 10px;
+        }
+
+        .profile-pic input {
+            margin: auto;
+            display: block;
+        }
+
+        /* Form Layout */
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px;
+            margin-top: 10px;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            font-size: 15px;
+            background: #f8fafc;
+            box-sizing: border-box;
+            transition: border 0.2s;
+        }
+
+        input:focus, select:focus {
+            border-color: #2563eb;
+            outline: none;
+            background: #ffffff;
+        }
+
+        .full-width {
+            grid-column: span 2;
+        }
+
+        /* Submit Button */
+        .btn {
+            width: 100%;
+            padding: 14px;
+            font-size: 17px;
+            background: #0f172a;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.25s;
+        }
+
+        .btn:hover {
+            background: #1e293b;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            form { grid-template-columns: 1fr; }
+            .full-width { grid-column: span 1; }
+        }
     </style>
 </head>
 
 <body>
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <div>
-            <div class="logo"><img th:src="@{/images/graduate.gif}" alt="book icon">BookTrack</div>
-            <div class="menu">
-                <a th:href="@{/studdash}"><i class="fa fa-home"></i> Dashboard</a>
-                <a th:href="@{/studsearch}"><i class="fa fa-search"></i> Search Books</a>
-                <a th:href="@{/studissue-return}"><i class="fa fa-exchange-alt"></i> Issue / Return</a>
-                <a th:href="@{/studreserve}"><i class="fa fa-bookmark"></i> Reservations</a>
+
+    <div class="container">
+
+        <!-- Top Logo + Title -->
+        <div class="title-area">
+            <img th:src="@{/images/graduate.gif}" width="85" alt="logo">
+            <h2>BookTrack</h2>
+        </div>
+
+        <!-- Profile Picture -->
+        <div class="profile-pic">
+            <img th:src="@{${session.loggedInUser.profileImage} != null ? ${session.loggedInUser.profileImage} : '/images/profile.webp'}"
+                 id="profileImage" alt="Profile">
+            <input type="file" name="profileImageFile" accept="image/*" form="profileForm"
+                   onchange="previewImage(event)">
+        </div>
+
+        <!-- Profile Form -->
+        <form id="profileForm" th:action="@{/user/update}" method="post" enctype="multipart/form-data">
+
+            <div>
+                <label>Full Name</label>
+                <input type="text" name="fullName" th:value="${session.loggedInUser.fullName}" required>
             </div>
-        </div>
-        <a th:href="@{/logout}"><i class="fa fa-sign-out"></i> Logout</a>
-    </div>
 
-    <!-- Main Content -->
-    <div class="main">
-        <!-- Topbar -->
-        <div class="topbar">
-            <h2 style="text-decoration: solid;">Student Profile</h2>
-            <a th:href="@{/studnotif}" class="notification" style="position: relative;">
-                <i class="fa fa-bell fa-lg"></i>
-                <span class="badge" style="position: absolute; top: -5px; right: -10px;">5</span>
-            </a>
-        </div>
-
-        <!-- Profile Section -->
-        <div class="profile-container">
-            <!-- <div class="profile-pic">
-                <img th:src="@{${session.loggedInUser.profileImage} != null ? ${session.loggedInUser.profileImage} : '/images/profile.webp'}"
-                     id="profileImage" alt="Profile">
-                <input type="file" name="profileImageFile" accept="image/*" onchange="previewImage(event)">
-            </div> -->
-
-            <form th:action="@{/user/update}" method="post" enctype="multipart/form-data">
-                <div>
-                    <label>Full Name</label>
-                    <input type="text" name="fullName" th:value="${session.loggedInUser.fullName}" required>
-                </div>
-                <div>
-                    <label>Student ID</label>
-                    <input type="text" name="studentId" th:value="${session.loggedInUser.studentId}" disabled>
-                </div>
-                <div>
-                    <label>Email</label>
-                    <input type="email" name="email" th:value="${session.loggedInUser.email}" required>
-                </div>
-                <div class="full-width">
-                    <label>Password</label>
-                    <input type="password" name="password" th:value="${session.loggedInUser.password}" required>
-                </div>
-                <div class="full-width">
-                    <button type="submit" class="btn">Update Profile</button>
-                </div>
-            </form>
-        </div>
-
-        <!-- Department Stats Cards -->
-        <h3 style="text-align:center; margin-bottom:20px;">Your Book Stats by Department</h3>
-        <div class="cards">
-            <div class="card" th:each="entry : ${deptCounts}" th:classappend="' dept-' + ${entry.key}">
-                <h3 th:text="${entry.key}">Department</h3>
-                <p th:text="${entry.value + ' Books'}">0 Books</p>
-                <a th:href="@{/studsearch}" class="btn">View</a>
+            <div>
+                <label>Enrollment No.</label>
+                <input type="text" th:value="${session.loggedInUser.studentId}" disabled>
             </div>
-        </div>
+
+            <div>
+                <label>Email</label>
+                <input type="email" name="email" th:value="${session.loggedInUser.email}" required>
+            </div>
+
+            <div>
+                <label>Phone</label>
+                <input type="text" name="phone" th:value="${session.loggedInUser.phone}">
+            </div>
+
+            <div>
+                <label>Department</label>
+                <select name="department">
+                    <option th:selected="${session.loggedInUser.department == 'CSE'}">CSE</option>
+                    <option th:selected="${session.loggedInUser.department == 'IT'}">IT</option>
+                    <option th:selected="${session.loggedInUser.department == 'AI&DS'}">AI&DS</option>
+                    <option th:selected="${session.loggedInUser.department == 'ETC'}">ETC</option>
+                    <option th:selected="${session.loggedInUser.department == 'ME'}">ME</option>
+                    <option th:selected="${session.loggedInUser.department == 'CE'}">CE</option>
+                    <option th:selected="${session.loggedInUser.department == 'EE'}">EE</option>
+                </select>
+            </div>
+
+            <div>
+                <label>Year</label>
+                <select name="year">
+                    <option th:selected="${session.loggedInUser.year == '1st Year'}">1st Year</option>
+                    <option th:selected="${session.loggedInUser.year == '2nd Year'}">2nd Year</option>
+                    <option th:selected="${session.loggedInUser.year == '3rd Year'}">3rd Year</option>
+                    <option th:selected="${session.loggedInUser.year == 'Final Year'}">Final Year</option>
+                </select>
+            </div>
+
+            <div class="full-width">
+                <label>Password</label>
+                <input type="password" name="password" th:value="${session.loggedInUser.password}" required>
+            </div>
+
+            <div class="full-width">
+                <button class="btn" type="submit">Update Profile</button>
+            </div>
+        </form>
     </div>
 
     <script>
-        // Instant profile image preview
         function previewImage(event) {
-            const img = document.getElementById("profileImage");
-            img.src = URL.createObjectURL(event.target.files[0]);
+            document.getElementById("profileImage").src =
+                URL.createObjectURL(event.target.files[0]);
         }
     </script>
+
 </body>
 </html>
