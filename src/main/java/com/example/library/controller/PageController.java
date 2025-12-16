@@ -38,33 +38,38 @@ public class PageController {
     // --------------------------
     // Student Dashboard Mapping
     // --------------------------
-   @GetMapping("/studdash")
-    public String studentDashboard(HttpSession session, Model model) {
-        // 1. Get logged-in user from session
-        User loggedInUser = (User) session.getAttribute("loggedInUser");
-        if (loggedInUser == null) {
-            return "redirect:/user/login";
-        }
+  @GetMapping("/studdash")
+public String showStudentDashboard(HttpSession session, Model model) {
 
-        // 2. Load all books
-        List<Book> books = bookService.getAllBooks();
+    User loggedInUser = (User) session.getAttribute("loggedInUser");
 
-        // 3. Pass to model
-        model.addAttribute("user", loggedInUser);
-        model.addAttribute("books", books);
-
-        // 4. Dynamically compute department slug for each book (for CSS)
-        books.forEach(book -> {
-            if (book.getDepartment() != null) {
-                String deptSlug = book.getDepartment().replaceAll("&", "_").replaceAll("\\s+", "_");
-                book.setDepartment(deptSlug); // overwrite for easier use in Thymeleaf class
-            } else {
-                book.setDepartment("DEFAULT");
-            }
-        });
-
-        return "studdash";
+    if (loggedInUser == null) {
+        return "redirect:/user/login";
     }
+
+    // Add updated user to model
+    model.addAttribute("loggedInUser", loggedInUser);
+
+    // Load books
+    List<Book> books = bookService.getAllBooks();
+    model.addAttribute("books", books);
+
+    // Prepare department slugs
+    books.forEach(book -> {
+        if (book.getDepartment() != null) {
+            String deptSlug = book.getDepartment()
+                    .replaceAll("&", "_")
+                    .replaceAll("\\s+", "_");
+            book.setDepartment(deptSlug);
+        } else {
+            book.setDepartment("DEFAULT");
+        }
+    });
+
+    return "studdash";
+}
+
+
     // --------------------------
     // Other student pages
     // --------------------------
@@ -107,6 +112,8 @@ public class PageController {
         model.addAttribute("user", loggedInUser);
         return "studprofile";
     }
+
+    
 
     @GetMapping("/studnotif")
     public String studentNotif(HttpSession session) {

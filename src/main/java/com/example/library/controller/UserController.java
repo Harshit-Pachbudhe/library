@@ -1,6 +1,7 @@
 package com.example.library.controller;
 
-import java.io.IOException;
+
+import java.io.File;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -67,56 +68,74 @@ public class UserController {
     }
 
     // -------------------- Profile --------------------
-    @GetMapping("/profile")
-    public String viewProfile(HttpSession session, Model model) {
-        User loggedInUser = (User) session.getAttribute("loggedInUser");
-        if (loggedInUser == null) {
-            return "redirect:/user/login";  // Not logged in
-        }
-        model.addAttribute("student", loggedInUser);
-        return "studprofile";
+   @GetMapping("/profile")
+public String viewProfile(HttpSession session, Model model) {
+    User loggedInUser = (User) session.getAttribute("loggedInUser");
+    if (loggedInUser == null) {
+        return "redirect:/user/login";
     }
+    model.addAttribute("user", loggedInUser); // 🔥 FIX
+    return "studprofile";
+}
 
     // -------------------- Update Profile --------------------
-    @PostMapping("/update")
+  @PostMapping("/update")
 public String updateProfile(@ModelAttribute("user") User user,
                             @RequestParam(value = "profileImageFile", required = false) MultipartFile profileImageFile,
                             HttpSession session,
                             Model model) {
-    // Get logged-in user from session
+
     User loggedInUser = (User) session.getAttribute("loggedInUser");
     if (loggedInUser == null) {
         return "redirect:/user/login";
     }
 
-    // Update fields
+    // 1️⃣ Update text fields
     loggedInUser.setFullName(user.getFullName());
     loggedInUser.setEmail(user.getEmail());
-    loggedInUser.setPassword(user.getPassword()); // or encrypt if needed
+    loggedInUser.setPassword(user.getPassword());
 
-    // Handle profile image if uploaded
+    // 2️⃣ PROFILE IMAGE UPDATE
     if (profileImageFile != null && !profileImageFile.isEmpty()) {
         try {
-            // Save file to /images/ folder (or store path in DB)
-            String filename = profileImageFile.getOriginalFilename();
-            String filepath = "src/main/resources/static/images/" + filename;
-            profileImageFile.transferTo(new java.io.File(filepath));
-            loggedInUser.setProfileImage("/images/" + filename);
-        } catch (IOException | IllegalStateException e) {
-            // Log the error (optional: use a logger in production)
-            System.err.println("Profile image upload failed: " + e.getMessage());
-            // Show user-friendly error in the UI
-            model.addAttribute("error", "Profile image upload failed. Please try again.");
+            String projectRoot = System.getProperty("user.dir");
+            String uploadDir = projectRoot + "/uploads/profile/";
+
+            File folder = new File(uploadDir);
+            if (!folder.exists()) folder.mkdirs();
+
+            // 🔥 Delete old image
+            String oldImage = loggedInUser.getProfileImage();
+            if (oldImage != null && oldImage.startsWith("/uploads/")) {
+                File oldFile = new File(projectRoot + oldImage.replace("/", File.separator));
+                if (oldFile.exists()) {
+                    oldFile.delete();
+                }
+            }
+
+            // 🔥 Save new image with unique name
+            String originalName = profileImageFile.getOriginalFilename();
+            String extension = originalName.substring(originalName.lastIndexOf("."));
+            String filename = "profile_" + loggedInUser.getId() + "_" + System.currentTimeMillis() + extension;
+
+            File newFile = new File(uploadDir + filename);
+            profileImageFile.transferTo(newFile);
+
+            loggedInUser.setProfileImage("/uploads/profile/" + filename);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("error", "Image upload failed");
         }
     }
 
-    // Save updates via service
+    // 3️⃣ Save user
     userService.updateUser(loggedInUser);
 
-    // Update session
+    // 4️⃣ Update session
     session.setAttribute("loggedInUser", loggedInUser);
 
-    // Redirect to dashboard instead of profile page
+    // 5️⃣ Redirect
     return "redirect:/studdash";
 }
 

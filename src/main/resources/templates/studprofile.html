@@ -128,8 +128,13 @@
 
         <!-- Profile Picture -->
         <div class="profile-pic">
-            <img th:src="@{${session.loggedInUser.profileImage} != null ? ${session.loggedInUser.profileImage} : '/images/profile.webp'}"
-                 id="profileImage" alt="Profile">
+         <img id="profileImage"
+     th:src="${user.profileImage != null} ?
+        ${user.profileImage} :
+        '/images/profile.webp'"
+     style="width:120px;height:120px;border-radius:50%;object-fit:cover;">
+
+
             <input type="file" name="profileImageFile" accept="image/*" form="profileForm"
                    onchange="previewImage(event)">
         </div>
@@ -139,50 +144,50 @@
 
             <div>
                 <label>Full Name</label>
-                <input type="text" name="fullName" th:value="${session.loggedInUser.fullName}" required>
+                <input type="text" name="fullName" th:value="${user.fullName}" required>
             </div>
 
             <div>
                 <label>Enrollment No.</label>
-                <input type="text" th:value="${session.loggedInUser.studentId}" disabled>
+                <input type="text" th:value="${user.studentId}" disabled>
             </div>
 
             <div>
                 <label>Email</label>
-                <input type="email" name="email" th:value="${session.loggedInUser.email}" required>
+                <input type="email" name="email" th:value="${user.email}" required>
             </div>
 
             <div>
                 <label>Phone</label>
-                <input type="text" name="phone" th:value="${session.loggedInUser.phone}">
+                <input type="text" name="phone" th:value="${user.phone}">
             </div>
 
             <div>
                 <label>Department</label>
                 <select name="department">
-                    <option th:selected="${session.loggedInUser.department == 'CSE'}">CSE</option>
-                    <option th:selected="${session.loggedInUser.department == 'IT'}">IT</option>
-                    <option th:selected="${session.loggedInUser.department == 'AI&DS'}">AI&DS</option>
-                    <option th:selected="${session.loggedInUser.department == 'ETC'}">ETC</option>
-                    <option th:selected="${session.loggedInUser.department == 'ME'}">ME</option>
-                    <option th:selected="${session.loggedInUser.department == 'CE'}">CE</option>
-                    <option th:selected="${session.loggedInUser.department == 'EE'}">EE</option>
+                    <option th:selected="${user.department == 'CSE'}">CSE</option>
+                    <option th:selected="${user.department == 'IT'}">IT</option>
+                    <option th:selected="${user.department == 'AI&DS'}">AI&DS</option>
+                    <option th:selected="${user.department == 'ETC'}">ETC</option>
+                    <option th:selected="${user.department == 'ME'}">ME</option>
+                    <option th:selected="${user.department == 'CE'}">CE</option>
+                    <option th:selected="${user.department == 'EE'}">EE</option>
                 </select>
             </div>
 
             <div>
                 <label>Year</label>
                 <select name="year">
-                    <option th:selected="${session.loggedInUser.year == '1st Year'}">1st Year</option>
-                    <option th:selected="${session.loggedInUser.year == '2nd Year'}">2nd Year</option>
-                    <option th:selected="${session.loggedInUser.year == '3rd Year'}">3rd Year</option>
-                    <option th:selected="${session.loggedInUser.year == 'Final Year'}">Final Year</option>
+                    <option th:selected="${user.year == '1st Year'}">1st Year</option>
+                    <option th:selected="${user.year == '2nd Year'}">2nd Year</option>
+                    <option th:selected="${user.year == '3rd Year'}">3rd Year</option>
+                    <option th:selected="${user.year == 'Final Year'}">Final Year</option>
                 </select>
             </div>
 
             <div class="full-width">
                 <label>Password</label>
-                <input type="password" name="password" th:value="${session.loggedInUser.password}" required>
+                <input type="password" name="password" th:value="${user.password}" required>
             </div>
 
             <div class="full-width">

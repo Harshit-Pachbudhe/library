@@ -49,13 +49,17 @@
             </div>
 
             <!-- Dynamic Profile -->
-            <a th:href="@{/studprofile}" class="profile-link">
-                <img th:src="@{${session.loggedInUser.profileImage != null ? session.loggedInUser.profileImage : '/images/profile.webp'}}"
-     alt="Profile"
-     style="width:40px; height:40px; border-radius:50%; object-fit:cover;">
+         <!-- Dynamic Profile -->
+<a th:href="@{/user/profile}" class="profile-link">
+   <img th:src="${session.loggedInUser != null && session.loggedInUser.profileImage != null} ?
+        ${session.loggedInUser.profileImage} :
+        '/images/profile.webp'"
+     style="width:40px;height:40px;border-radius:50%;object-fit:cover;">
 
-                 
-            </a>
+</a>
+
+</a>
+
         </div>
 
         <h2>Library Dashboard</h2>
