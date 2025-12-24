@@ -39,4 +39,9 @@ public class BookService {
         bookRepository.save(book);
     }
 
+    public List<Book> getBooksByDepartment(String dept) {
+    return bookRepository.findByDepartment(dept);
+}
+
+
 }

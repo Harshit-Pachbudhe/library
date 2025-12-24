@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.library.model.Book;
 import com.example.library.model.User;
@@ -122,6 +123,26 @@ public String showStudentDashboard(HttpSession session, Model model) {
 
         return "studnotif";
     }
+
+    @GetMapping("/studbooks")
+public String booksByDepartment(
+        @RequestParam("dept") String department,
+        HttpSession session,
+        Model model) {
+
+    User loggedInUser = (User) session.getAttribute("loggedInUser");
+    if (loggedInUser == null) {
+        return "redirect:/user/login";
+    }
+
+    List<Book> books = bookService.getBooksByDepartment(department);
+
+    model.addAttribute("books", books);
+    model.addAttribute("department", department);
+
+    return "studbooks";
+}
+
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
